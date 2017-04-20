@@ -12,12 +12,25 @@ package sk.fri.uniza.microservice;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 //import com.example.helloworld.resources.HelloWorldResource;
 //import com.example.helloworld.health.TemplateHealthCheck;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
+    static SessionFactory buildSessionFactory;
+
     public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        conf.configure();
+
+        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
+        buildSessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+        
         new HelloWorldApplication().run(args);
     }
 
@@ -30,10 +43,12 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
         // nothing to do yet
     }
+    
 
     @Override
     public void run(HelloWorldConfiguration configuration,
             Environment environment) {
+        
         final HelloWorldResource resource = new HelloWorldResource(
                 configuration.getTemplate(),
                 configuration.getDefaultName()
@@ -42,6 +57,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                 = new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(resource);
+        
 
     }
 

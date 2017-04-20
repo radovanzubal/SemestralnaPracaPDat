@@ -10,13 +10,19 @@ package sk.fri.uniza.microservice;
  * @author hudik1
  */
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import org.hibernate.validator.constraints.Length;
 
+@Entity
 public class Saying {
-
+    
+    @Id
+    @GeneratedValue
     private long id;
 
-    @Length(max = 3)
+    @Length(max = 20)
     private String content;
 
     public Saying() {
