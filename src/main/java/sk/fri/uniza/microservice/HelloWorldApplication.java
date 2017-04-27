@@ -12,6 +12,8 @@ package sk.fri.uniza.microservice;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
+import java.util.Map;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -41,7 +43,13 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
     @Override
     public void initialize(Bootstrap<HelloWorldConfiguration> bootstrap) {
-        // nothing to do yet
+        bootstrap.addBundle(new ViewBundle<HelloWorldConfiguration>(){
+            @Override
+            public Map<String, Map<String, String>> getViewConfiguration(HelloWorldConfiguration configuration) {
+                
+                return super.getViewConfiguration(configuration); //To change body of generated methods, choose Tools | Templates.
+            }
+        });
     }
     
 
@@ -53,10 +61,15 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
                 configuration.getTemplate(),
                 configuration.getDefaultName()
         );
+        
+        final SayingResource sayingResource = new SayingResource();
+        
         final TemplateHealthCheck healthCheck
                 = new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
+
         environment.jersey().register(resource);
+        environment.jersey().register(sayingResource);
         
 
     }
