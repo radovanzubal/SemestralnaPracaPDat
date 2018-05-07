@@ -9,9 +9,9 @@ import io.dropwizard.views.View;
 
 /**
  *
- * @author hudik1
+ * @author Martin
  */
-public class SayingView extends View {
+public class SayingAddEditView extends View {
 
     private final Saying saying;
 
@@ -19,10 +19,11 @@ public class SayingView extends View {
         return saying;
     }
 
-    public SayingView(Saying saying) {
-        super("saying.ftl");
+    public SayingAddEditView(Saying saying) {
+        super("sayingAddEdit.ftl");
         this.saying = saying;
     }
 
     
+
 }
