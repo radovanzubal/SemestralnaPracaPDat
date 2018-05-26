@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sk.fri.uniza.microservice;
 
-/**
- *
- * @author hudik1
- */
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -18,56 +9,90 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import org.hibernate.validator.constraints.Length;
-
+/**
+ * Trieda definuje triedu Zariadenie (senzor) tak ako bude ukladaný do databázy.
+ * @author Zubaľ,Šibíková
+ */
 @Entity
-@Table(name = "sayings")
+@Table(name = "Zariadenie")
 @NamedQueries({
     @NamedQuery(
-            name = "sk.fri.uniza.microservice.Saying.findAll",
-            query = "SELECT s from Saying s"
+            name = "sk.fri.uniza.microservice.Zariadenie.findAll",
+            query = "SELECT s from Zariadenie s"
     )
 })
-public class Saying {
+public class Zariadenie {
 
     @Id
     @GeneratedValue
     private long id;
-
+     
     @Length(max = 20)
-    private String content;
+    private String content;//typ senzoru
 
-    public Saying() {
-        // Jackson deserialization
-        
+    /**
+     * Prázdny konštruktor tejto triedy
+     */
+    public Zariadenie() {        
     }
 
-    public Saying(String content) {
+    /**
+     * Konštruktor tejto triedy inicializuje premennú content(predstavuje typ senzoru)
+     * @param content nová hodnota premennej "content"
+     */
+    public Zariadenie(String content) {
         this.content = content;
     }
 
-    public Saying(long id, String content) {
+    /**
+     * Konštruktor tejto triedy inicializuje premennú content(predstavuje typ senzoru) a premennú "id"
+     * @param content nová hodnota premennej "content"
+     * @param id nová hodnota premennej "id"
+     */
+    public Zariadenie(long id, String content) {
         this.id = id;
         this.content = content;
     }
 
+   
+    /**
+     * Getter pre premennú "id"
+     * @return id
+     */
     @JsonProperty
     public long getId() {
         return id;
     }
 
+    /**
+     * Setter pre premennú "id"
+     * @param id nová hodnota premennej
+     */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+     * Setter pre premennú "content"
+     * @param content nová hodnota premennej
+     */
     public void setContent(String content) {
         this.content = content;
     }
 
+    /**
+     * Getter pre premennú "content"
+     * @return content
+     */
     @JsonProperty
     public String getContent() {
         return content;
     }
 
+    /**
+     * Vytvorí hash kód
+     * @return hash
+     */
     @Override
     public int hashCode() {
         int hash = 5;
@@ -76,6 +101,11 @@ public class Saying {
         return hash;
     }
 
+    /**
+     * Prepísanie metódy "equals" používanej pri zisťovaní rovnosti dvoch tried 
+     * @param obj
+     * @return true, ak sú rovnaké
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -87,7 +117,7 @@ public class Saying {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Saying other = (Saying) obj;
+        final Zariadenie other = (Zariadenie) obj;
         if (this.id != other.id) {
             return false;
         }

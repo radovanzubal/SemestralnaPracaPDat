@@ -1,9 +1,9 @@
-<#-- @ftlvariable name="" type="sk.fri.uniza.microservice.Saying" -->
+<#-- @ftlvariable name="" type="sk.fri.uniza.microservice.Zariadenie" -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <title>Saying</title>
+      <title>Zariadenie</title>
       <link rel="stylesheet" type="text/css" href="/assets/view.css" media="all">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
       <script type="text/javascript" src="/assets/view.js"></script>
@@ -14,13 +14,13 @@
       <div id="form_container">
          <h1><a>Form</a></h1>
          <div class="form_description">
-            <h2>Sayings detail:</h2>
+            <h2>Detail zariadenia:</h2>
             <p></p>
          </div>
-         <h2>id: ${saying.id}!</h2> 
-         <h2>Content: ${saying.content}!</h2>
+         <h2>id: ${zariadenie.id}!</h2> 
+         <h2>Senzor type: ${zariadenie.content}!</h2>
       </div>
-         <a href="/saying/list"><i class="fas fa-th-list fa-3x"></i></a>
+         <a href="/zariadenie/list"><i class="fas fa-th-list fa-3x"></i></a>
       <img id="bottom" src="/assets/bottom.png" alt="">
    </body>
 </html>
