@@ -1,0 +1,306 @@
+FORMAT: 1A
+HOST: http://localhost:8080/
+
+# Semestralna praca
+
+Zobrazuje zariadenia(senzory) a ich namerané údaje. Umožňuje správu použivateľov, 
+zariadení a nameraných dát. 
+
+## Pridá použivateľa [/uzivatel/add{?meno,heslo,pravomoc}]
++ Parameters
+    + meno (optional) - A query variable DefaultValue="nezadane"
+    + heslo (optional) - Another query variable DefaultValue="nezadane"
+    + pravomoc (optional) - Another query variable DefaultValue="guest"
+
+### Pridá použivateľa [POST]
+
++ Response 200 (application/json)
+
+        {
+        "id": 3,
+        "meno": "nezadane",
+        "heslo": "nezadane",
+        "pravomoc": "admin"
+        }
+        
+## Vráti použivateľa [/uzivatel/{id}]
++ Parameters
+    + id - A path variable (id používateľa)
+
+### Vráti použivateľa [GET]
+RolesAllowed("BASIC_USER")
+
++ Response 200 (sk.fri.uniza.microservice.uzivatel.ftl)
+
+### Vymaže použivateľa [DELETE]
+RolesAllowed("ADMIN")
+
++ Response 200 (application/json)
+
+        {
+        "id": 3,
+        "meno": "nezadane",
+        "heslo": "nezadane",
+        "pravomoc": "admin"
+        }
+        
+## Zmení parametre použivateľa [/uzivatel/edit/{id}]
+RolesAllowed("ADMIN")
++ Parameters
+    + id - A path variable (id používateľa)
+
+### Zmení parametre použivateľa [GET]
+
++ Response 200 (sk.fri.uniza.microservice.uzivatelAddEdit.ftl)
+
+## Pridá použivateľa [/uzivatel/add]
+### Pridá použivateľa [GET]
+
++ Response 200 (sk.fri.uniza.microservice.uzivatelAddEdit.ftl)
+
+
+## Zmení parametre použivateľa [/uzivatel/edit]
+### Zmení parametre použivateľa [POST]
++ Attributes
+    + param1: id (string) - FormParam id požívateľa
+    + param2: meno (string) - FormParam meno požívateľa
+    + param3: heslo (string) - FormParam heslo požívateľa
+    + param4: pravomoc (string) - FormParam pravomoc požívateľa
+
++ Request (application/x-www-form-urlencoded)
+
++ Response 200 (sk.fri.uniza.microservice.uzivatel.ftl)
+        
+## Vymaže použivateľa [/uzivatel/delete/{id}]
+RolesAllowed("ADMIN")
++ Parameters
+    + id - A path variable (id používateľa)
+
+### Vymaže použivateľa [GET]
+
++ Response 200 (sk.fri.uniza.microservice.uzivatel.ftl)
+
+## Zobrazí list použivateľov [/uzivatel/list]
+RolesAllowed("BASIC_USER")
+
+### Zobrazí list použivateľov [GET]
+
++ Response 200 (sk.fri.uniza.microservice.uzivatelList.ftl)
+
+
+## Vráti všetkých použivateľov [/uzivatel]
+RolesAllowed("BASIC_USER")
+
+### Vráti všetkých použivateľov [GET]
+
++ Response 200 (application/json)
+
+        [
+        {
+        "id": 3,
+        "meno": "nezadane",
+        "heslo": "nezadane",
+        "pravomoc": "admin"
+        }
+        ]
+
+### Vytvorí použivateľa [POST]
+
++ Response 200 (application/json)
+
+        {
+        "id": 3,
+        "meno": "nezadane",
+        "heslo": "nezadane",
+        "pravomoc": "admin"
+        }            
+
+
+## Pridá dáta [/data/add{?idz,hodnota}]
++ Parameters
+    + idz (optional) - A query long variable DefaultValue="0"
+    + hodnota (optional) - Another float query variable DefaultValue="0"
+
+### Pridá dáta [GET]
+
++ Response 200 (application/json)
+
+        {
+        "id":4,
+        "hodnota":1.4,
+        "idZariadenia":0,
+        "dateOfStart":"Y:2018 M:5 D:22 H:18 m:45 s:50 ms:905"
+        }
+
+## Zobrazí list všetkých dát [/data/list]
+
+### Zobrazí list všetkých dát [GET]
+
++ Response 200 (sk.fri.uniza.microservice.dataList.ftl)
+
+## Vymaže dáta [/data/{id}]
+RolesAllowed("ADMIN")
+
++ Parameters
+    + id  - A path LongParam variable 
+    
+### Vymaže dáta [DELETE]
+
++ Response 200 (sk.fri.uniza.microservice.dataList.ftl)
+
+### Zmení parametre dát [GET]
+
++ Response 200 (sk.fri.uniza.microservice.data.ftl)
+
+## Zmení parametre dát [/data/edit/{id}]
+
++ Parameters
+    + id  - A path LongParam variable 
+    
+### Zmení parametre dát [GET]
+
++ Response 200 (sk.fri.uniza.microservice.dataAddEdit.ftl)
+
+## Zmení parametre dát [/data/edit]
+
+### Zmení parametre dát [POST]
++ Attributes
+    + param1: id (string) - FormParam id požívateľa
+    + param2: hodnota (string) - FormParam hodnota dát
++ Response 200 (sk.fri.uniza.microservice.data.ftl)
+
+## Vráti JSON list dát [/data]
+
+### Vráti JSON list dát [GET]
+
++ Response 200 (application/json)
+
+        [
+        {
+        "id":4,
+        "hodnota":1.4,
+        "idZariadenia":0,
+        "dateOfStart":"Y:2018 M:5 D:22 H:18 m:45 s:50 ms:905"
+        }
+        ]
+
+### Vytvorí dáta [POST]
+
++ Response 200 (sk.fri.uniza.microservice.data.ftl) 
+
+## Vymaže dáta [/data/delete/{id}]
+
++ Parameters
+    + id  - A path LongParam variable 
+    
+### Vymaže dáta [GET]
+
++ Response 200 (sk.fri.uniza.microservice.dataList.ftl)
+
+## Vráti  zariadenie [/zariadenie/{id}]
+RolesAllowed("BASIC_USER")
+
++ Parameters
+    + id  - A path LongParam variable 
+    
+### Vráti zariadenie [GET]
+
++ Response 200 (sk.fri.uniza.microservice.zariadenie.ftl)
+
+### Vymaže zariadenie [DELETE]
+
++ Response 200 (application/json)
+
+        {
+        "id":3,
+        "content":"gyro"
+        }
+        
+### Vráti zariadenie ako JSON [POST]
+
++ Response 200 (application/json)
+
+        {
+        "id":3,
+        "content":"gyro"
+        }
+        
+## Zmení parametre zariadenia [/zariadenie/edit/{id}]
+RolesAllowed("BASIC_USER")
+
++ Parameters
+    + id  - A path LongParam variable 
+    
+### Zmení parametre zariadenia [GET]
+
++ Response 200 (sk.fri.uniza.microservice.zariadenieAddEdit.ftl)
+        
+## Pridá zariadenie [/zariadenie/add]
+RolesAllowed("BASIC_USER")
+    
+### Pridá zariadenie [GET]
+
++ Response 200 (sk.fri.uniza.microservice.zariadenieAddEdit.ftl)
+    
+## Pridá zariadenie [/zariadenie/add{?typ}]
++ Parameters
+    + typ (optional) - A query variable DefaultValue="nezadane"
+
+### Pridá zariadenie vráti JSON [POST]
+
++ Response 200 (application/json)
+
+        {
+        "id":3,
+        "content":"gyro"
+        }
+        
+## Zmení parametre zariadenia [/zariadenie/edit]
+RolesAllowed("BASIC_USER")
+
+### Zmení parametre zariadenia [POST]
++ Attributes
+    + param1: id (string) - FormParam id zariadenia
+    + param2: content (string) - FormParam content(typ senzoru)
+    
++ Response 200 (sk.fri.uniza.microservice.zariadenie.ftl)
+
+## Vytvorí zariadenie [/zariadenie]
+RolesAllowed("BASIC_USER")
+
+### Vytvorí zariadenie [POST]
+
++ Response 200 (application/json)
+
+        {
+        "id":3,
+        "content":"gyro"
+        }
+        
+### Vráti list zariadení vo formáte JSON [GET]
+
++ Response 200 (application/json)
+
+        [
+        {
+        "id":3,
+        "content":"gyro"
+        }
+        ]
+        
+## Vymaže zariadenie [/zariadenie/delete/{id}]
+RolesAllowed("BASIC_USER")
+
++ Parameters
+    + id  - A path LongParam variable 
+    
+### Vymaže zariadenie [GET]
+
++ Response 200 (sk.fri.uniza.microservice.zariadenieList.ftl)
+
+## Vymaže zariadenie [/zariadenie/list]
+RolesAllowed("BASIC_USER")
+    
+### Vymaže zariadenie [GET]
+
++ Response 200 (sk.fri.uniza.microservice.zariadenieList.ftl)
